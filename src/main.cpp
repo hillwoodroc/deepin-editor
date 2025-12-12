@@ -71,8 +71,13 @@ int main(int argc, char *argv[])
         urls << info.url.toLocalFile();
 
         QFileInfo fileInfo(path);
-        qInfo() << qPrintable(QString("Open file, isFile: %1, suffix: %2, size: %3, permssion: %4").arg(fileInfo.isFile())
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+        qInfo() << qPrintable(QString("Open file, isFile: %1, suffix: %2, size: %3, permission: %4").arg(fileInfo.isFile())
+                              .arg(fileInfo.suffix()).arg(fileInfo.size()).arg(static_cast<uint>(fileInfo.permissions())));
+#else
+        qInfo() << qPrintable(QString("Open file, isFile: %1, suffix: %2, size: %3, permission: %4").arg(fileInfo.isFile())
                               .arg(fileInfo.suffix()).arg(fileInfo.size()).arg(fileInfo.permissions()));
+#endif
     }
 
     bool hasWindowFlag = parser.isSet(newWindowOption);
