@@ -1,6 +1,11 @@
 function(TRANSLATION_GENERATE QMS)
   find_package(Qt${QT_VERSION_MAJOR}LinguistTools QUIET)
 
+  find_program(Qt${QT_VERSION_MAJOR}_LRELEASE_EXECUTABLE NAMES lrelease HINTS
+    "/usr/lib/qt${QT_VERSION_MAJOR}/bin"
+    "/usr/lib64/qt${QT_VERSION_MAJOR}/bin"
+  )
+
   if (NOT Qt${QT_VERSION_MAJOR}_LRELEASE_EXECUTABLE)
     set(QT_LRELEASE "/lib/qt${QT_VERSION_MAJOR}/bin/lrelease")
     message(STATUS "NOT found lrelease, set QT_LRELEASE = ${QT_LRELEASE}")
